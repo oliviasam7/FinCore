@@ -3,24 +3,13 @@ Duration:09/03/2026 - 15/03/2026
 
 Team Members & Work Done:
 Khushi.M (Team Lead)
+* Engaged with potential users to understand difficulties in interpreting contracts
+* Identified challenges such as complex legal language, unclear clauses, and hidden risks
+* Recognized the need for a system to simplify contracts and highlight key points
+* Conducted basic research on existing contract analysis tools
+* Contributed to the initial idea of an AI-based contract analysis solution
+* Participated in team discussions to define the problem statement and project direction
 
-Interacted with potential users to understand challenges faced while reading and interpreting contracts
-
-Gathered feedback on common issues such as complex legal language, hidden risks, and lack of clarity in agreements
-
-Identified the need for a system that simplifies contracts and highlights important clauses
-
-Conducted discussions with companies and explored existing platforms offering contract analysis solutions
-
-Analyzed how current solutions work and identified gaps and areas for improvement
-
-Contributed to the initial idea development of an AI-based contract analysis platform
-
-Suggested improvements and differentiating features to make the system more user-friendly and effective
-
-Discussed and refined key features such as contract explanation in simple language, risk detection, and multilingual support
-
-Participated in team discussions to define the overall project concept and direction
 
 Surya Priya 
 This week, I worked on understanding the project better.
@@ -34,3 +23,12 @@ Olivia Sam
 	Went through different APIs that we could use in our project so that we can choose the best suitable one.
 	Created a basic prototype(only features it provides) of what our project is going to do. 
 	
+Sujay
+* Worked on understanding risk factors in contracts and possible legal/financial issues
+* Studied risks like hidden clauses, unclear terms, and unfavorable conditions
+* Explored simple ways to detect and highlight risks using AI
+* Identified target users such as startups, small businesses, and individuals
+* Analyzed user needs and common problems to improve usefulness
+* Tried reaching out to users for feedback and validation
+* Suggested ideas to improve risk detection features
+* Participated in team discussions to align features with project goals
