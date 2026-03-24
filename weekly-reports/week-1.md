@@ -35,7 +35,8 @@ Sujay
 
 pavani
 * Contributed to drafting the problem statement and description, clearly outlining customer pain points and the need for an AI-powered contract intelligence platform.
-*Identified target customer segments and validated demand through customer acknowledgment insights.
+* Identified target customer segments and validated demand through customer acknowledgment insights.
+
 
 
 
