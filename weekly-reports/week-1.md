@@ -12,11 +12,10 @@ Khushi.M (Team Lead)
 
 
 Surya Priya 
-This week, I worked on understanding the project better.
-	*	I talked to some customers and collected the features they want in the project.
-	*	I discussed with my team about what we should do and how to proceed.
-	*	I went through different LMS systems to understand how they work.
-	*	Based on this, we got a clear idea about our project features and design.
+*	I interviewed some customers and collected the features they want in the project.
+*	discussed with my team about what we should do and how to proceed.
+*	went through different LMS systems to understand how they work.
+*	Based on this, we got a clear idea about our project features and design.
 
 Olivia Sam
 * Tried analayzing and understanding patterns in problems that our potential users would face and would want our product to help with.
