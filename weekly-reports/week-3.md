@@ -29,3 +29,15 @@ Suryapriya SRN-R23EF086
 * Planned implementation in a simple and user-friendly way
 * Prepared a report based on the customer feedback
 
+ Pavani  SRN-R23EF176
+
+* Worked on project documentation and refined overall structure
+* Defined customer profiles and personas to capture target users
+* Highlighted unique features and value propositions of the platform
+* Outlined use cases and system requirements for clarity
+* Incorporated feedback and interview insights to strengthen business perspective
+* Added industry relevance section to show practical adoption potential
+
+
+
+
