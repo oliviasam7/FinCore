@@ -20,7 +20,7 @@ Surya Priya SRN-R23EF086
 Olivia Sam SRN-R23EF164
 * Tried analayzing and understanding patterns in problems that our potential users would face and would want our product to help with.
 * Went through different APIs that we could use in our project so that we can choose the best suitable one.
-* Created a basic prototype(only features it provides) of what our project is going to do. 
+* Created a basic prototype of what our project is going to do. 
 	
 Sujay SRN-R23EF115
 * Worked on understanding risk factors in contracts and possible legal/financial issues
@@ -32,7 +32,7 @@ Sujay SRN-R23EF115
 * Suggested ideas to improve risk detection features
 * Participated in team discussions to align features with project goals
 
-pavani SRN-R23EF176
+Pavani SRN-R23EF176
 * Contributed to drafting the problem statement and description, clearly outlining customer pain points and the need for an AI-powered contract intelligence platform.
 * Identified target customer segments and validated demand through customer acknowledgment insights.
 
