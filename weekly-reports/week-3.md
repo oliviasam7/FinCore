@@ -51,10 +51,16 @@ Suryapriya SRN-R23EF086
 
 * Worked on project documentation and refined overall structure
 * Defined customer profiles and personas to capture target users
-* Highlighted unique features and value propositions of the platform
 * Outlined use cases and system requirements for clarity
 * Incorporated feedback and interview insights to strengthen business perspective
-* Added industry relevance section to show practical adoption potential
+  
+
+Olivia Sam SRN-R23EF164
+* Refined prototype based on customer insights.
+* Hardcoded demo output and working on replacing with API.
+* Modified few frontend features.
+
+
 
 
 
