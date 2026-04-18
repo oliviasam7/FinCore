@@ -1,245 +1,192 @@
-# FinCore — AI-Powered Contract & Financial Intelligence Platform
+# FinCore — AI Contract Intelligence Platform
 
-Upload any contract and get an instant AI-powered breakdown of risks, clauses, and financial terms — powered by **Claude (Anthropic API)**.
-
----
-
-##  Why This Project Matters
-
-Contract analysis in real-world businesses is:
-
-* Manual and time-consuming
-* Prone to human error
-* Difficult to standardize across teams
-
-**FinCore solves this by:**
-
-* Automating contract understanding using AI
-* Providing instant and consistent risk scoring
-* Converting complex legal language into simple insights
-
- **Use Cases:**
-
-* Startups reviewing agreements quickly
-* Legal teams speeding up contract evaluation
-* Businesses minimizing financial and legal risks
+> Upload any contract and get an instant AI-powered breakdown of risks, clauses, and financial terms — powered by GPT-4o (OpenAI API).
 
 ---
 
-##  Unique Selling Points (USP)
+## What It Does
 
-*  Real-time AI contract analysis (~10–15 seconds)
-*  Focus-based analysis (user selects priority areas)
-*  Structured JSON output (easy for integration)
-*  Powered by Claude AI for advanced language understanding
-*  Supports both text and image-based contracts
+FinCore is a React web app that lets you drop in a contract — as text, PDF, DOCX, or an image — and get back a structured plain-language analysis in seconds. It also lets you chat with the AI about the contract and translate the summary into Indian regional languages or simplified English.
 
----
-
-##  What It Does
-
-| Step                 | What happens                                                                                |
-| -------------------- | ------------------------------------------------------------------------------------------- |
-| ① Paste or Upload    | Paste contract text or upload `.txt`, `.pdf`, `.docx`, `.png`, `.jpg`, `.webp`              |
-| ② Choose Focus Areas | Select Risk Flags, Financial Terms, Obligations, Exit Clauses, Penalties, or IP & Ownership |
-| ③ Analyze            | Claude processes and returns structured JSON                                                |
-| ④ View Results       | Risk score, clause breakdown, financial insights, and recommendation                        |
+| Step | What happens |
+|------|--------------|
+| ① Paste or Upload | Paste contract text, or upload a `.txt`, `.pdf`, `.docx`, `.png`, `.jpg`, or `.webp` file |
+| ② Choose Focus Areas | Select which aspects to prioritize: Risk Flags, Financial Terms, Obligations, Exit Clauses, Penalties, or IP & Ownership |
+| ③ Analyze | GPT-4o reads the contract and returns a structured JSON analysis |
+| ④ View Results | Risk score (0–100), plain-language clause breakdown, financial figures, and an actionable recommendation |
+| ⑤ Chat | Ask follow-up questions about the contract via the built-in chatbot |
+| ⑥ Translate | Translate the summary into Hindi, Tamil, Telugu, Kannada, Bengali, Marathi, or Simple English |
 
 ---
 
-##  Risk Scoring Explained
-
-The platform assigns a **risk score (0–100)** based on:
-
-* Presence of unfavorable clauses
-* Financial liabilities
-* Penalties and exit conditions
-* Ambiguity in obligations
-
-**Interpretation:**
-
-*  0–30 → Low Risk
-*  31–70 → Medium Risk
-*  71–100 → High Risk
-
-This enables quick, informed decision-making.
-
----
-
-##  System Architecture
-
-1. User inputs contract (text or file)
-2. Frontend processes and prepares data
-3. Data sent to Anthropic API (Claude)
-4. AI analyzes using prompt engineering
-5. Structured JSON response generated
-6. UI displays:
-
-   * Risk Score
-   * Clause Analysis
-   * Financial Data
-   * Recommendation
-
----
-
-##  Key Concepts Used
-
-* Natural Language Processing (NLP)
-* Prompt Engineering
-* Text Classification
-* Risk Analysis Models
-* Data Extraction Techniques
-
----
-
-##  Tech Stack
-
-* **Frontend:** React.js, HTML, CSS, JavaScript
-* **Backend/API Handling:** JavaScript (Fetch API)
-* **AI Engine:** Claude (Anthropic API)
-* **File Processing:** Text extraction & base64 encoding
-
----
-
-##  Project Structure
+## Project Structure
 
 ```
-fincore/
-├── public/
-│   └── index.html
-├── src/
-│   ├── App.jsx
-│   ├── index.js
-│   ├── styles/
-│   │   └── global.css
-│   ├── components/
-│   │   ├── Navbar.jsx
-│   │   ├── Hero.jsx
-│   │   ├── InputPanel.jsx
-│   │   ├── ResultsPanel.jsx
-│   │   ├── Results.jsx
-│   │   └── Footer.jsx
-│   └── utils/
-│       ├── api.js
-│       └── constants.js
-└── package.json
+FinCore-main/
+├── documents/                        # Project planning docs
+│   ├── AI PROJECT.pptx
+│   ├── Customer Interview Document.docx
+│   ├── Problem Definition Document.docx
+│   └── PRS GL.docx
+└── fincore/                          # React application
+    ├── public/
+    │   └── index.html                # HTML shell
+    ├── src/
+    │   ├── App.jsx                   # Root component — state & orchestration
+    │   ├── index.js                  # React entry point
+    │   ├── styles/
+    │   │   └── global.css            # CSS variables, grid background, responsive rules
+    │   ├── components/
+    │   │   ├── Navbar.jsx            # Top navigation bar
+    │   │   ├── Hero.jsx              # Hero headline section
+    │   │   ├── InputPanel.jsx        # Left panel: input tabs, textarea, dropzone, focus toggles, analyze button
+    │   │   ├── ResultsPanel.jsx      # Right panel: idle / loading / results states
+    │   │   ├── Results.jsx           # Risk meter, clause cards, financials grid, recommendation block
+    │   │   ├── Chatbot.jsx           # Chat interface for follow-up Q&A on the contract
+    │   │   ├── Translator.jsx        # Translate contract summary into regional languages
+    │   │   └── Footer.jsx            # Footer with disclaimer
+    │   └── utils/
+    │       ├── api.js                # Anthropic API calls, JSON parsing, file reading helpers
+    │       └── constants.js          # Focus area options, model name
+    └── package.json
 ```
 
 ---
 
-##  Setup & Installation
+## Tech Stack
 
-### Prerequisites
+| Layer | Technology |
+|-------|-----------|
+| UI Framework | React 18 |
+| Bundler | Create React App (react-scripts 5) |
+| AI Backend | OpenAI API — GPT-4o (direct browser calls) |
+| Styling | Custom CSS with variables (no UI library) |
+| File Parsing | Native browser `FileReader` API |
 
-* Node.js (v16 or higher)
-* Anthropic API Key
+---
 
-### Steps
+## Prerequisites
 
-**1. Install dependencies**
+- [Node.js](https://nodejs.org/) v16 or higher
+- An [OpenAI API key](https://platform.openai.com/api-keys) (paid tier required for GPT-4o)
 
+---
+
+## Setup & Running Locally
+
+**1. Clone or unzip the project and navigate into the app folder**
+```bash
+cd fincore
+```
+
+**2. Install dependencies**
 ```bash
 npm install
 ```
 
-**2. Add API key**
+**3. Add your OpenAI API key**
 
-Create `.env` file in root:
-
+Create a `.env` file in the `fincore/` directory:
 ```
-REACT_APP_ANTHROPIC_KEY=your_api_key_here
+REACT_APP_OPENAI_KEY=your_api_key_here
 ```
 
-Update headers in `src/utils/api.js`:
-
+Then open `src/utils/api.js` and make sure the `fetch` call targets the OpenAI endpoint with these headers:
 ```js
-headers: {
-  "Content-Type": "application/json",
-  "x-api-key": process.env.REACT_APP_ANTHROPIC_KEY,
-  "anthropic-version": "2023-06-01",
-  "anthropic-dangerous-direct-browser-access": "true",
-}
+const response = await fetch("https://api.openai.com/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${process.env.REACT_APP_OPENAI_KEY}`,
+  },
+  body: JSON.stringify({
+    model: "gpt-4o",
+    messages: [ /* your messages array */ ],
+  }),
+});
 ```
 
-**3. Run the app**
-
+**4. Start the development server**
 ```bash
 npm start
 ```
 
-App runs at: **http://localhost:3000**
+Opens at **http://localhost:3000**
+
+**5. Build for production**
+```bash
+npm run build
+```
+
+Output goes to the `build/` folder and can be deployed to any static hosting service (Vercel, Netlify, GitHub Pages, etc.).
 
 ---
 
+## How to Use
 
+1. **Input your contract** — paste text directly into the textarea, or switch to the *Upload File* tab and drop in a file (`.txt`, `.pdf`, `.docx`, `.png`, `.jpg`, `.webp`)
+2. **Select focus areas** — check at least one: Risk Flags, Financial Terms, Obligations, Exit Clauses, Penalties, or IP & Ownership
+3. **Click Analyze Contract →** — wait ~10–15 seconds for Claude to process
+4. **Browse the results** — risk score (0–100), clause-by-clause breakdown, key financial figures, and a final recommendation
+5. **Chat** — use the chatbot panel to ask follow-up questions about the contract
+6. **Translate** — click a language button to get the summary in Hindi, Tamil, Telugu, Kannada, Bengali, Marathi, or Simple English
 
-##  How to Use
-
-1. Paste contract text OR upload a file
-2. Select at least one focus area
-3. Click **Analyze Contract →**
-4. View:
-
-   * Risk score
-   * Clause breakdown
-   * Financial insights
-   * Final recommendation
-
->  **Note:**
-> Image files are processed as vision inputs.
-> Text-based files are parsed directly.
+> **Note on file types:** Image files (`.png`, `.jpg`, `.webp`) are sent to Claude as base64 vision inputs. Text-based files (`.txt`, `.pdf`, `.docx`) are read as plain text. Scanned PDFs that are image-only should be converted to an image format first.
 
 ---
 
-##  Security Note
+## Focus Areas
 
-* API key stored securely in environment variables
-* No contract data stored permanently
-* All analysis happens in real-time
-
----
-
-##  Editing Guide
-
-| Task          | File             |
-| ------------- | ---------------- |
-| Navbar / Logo | `Navbar.jsx`     |
-| Hero Section  | `Hero.jsx`       |
-| Input Panel   | `InputPanel.jsx` |
-| Focus Options | `constants.js`   |
-| AI Logic      | `api.js`         |
-| Results UI    | `Results.jsx`    |
-| App Flow      | `App.jsx`        |
-| Styling       | `global.css`     |
+| Option | What it looks for |
+|--------|------------------|
+| ⚠ Risk Flags | Unusual clauses, one-sided terms, vague language |
+| ◈ Financial Terms | Payment amounts, fees, penalties, revenue shares |
+| ≡ Obligations | What each party is required to do |
+| ⊘ Exit Clauses | Termination conditions and notice periods |
+| ▲ Penalties | Late fees, breach consequences, damages |
+| ◉ IP & Ownership | Who owns the work, data, and intellectual property |
 
 ---
 
-##  Troubleshooting
+## Pushing to GitHub
 
-**API key not working**
-→ Ensure `.env` is in root & restart server
+**First time:**
+```bash
+git init
+git add .
+git commit -m "Initial commit — FinCore contract analyzer"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/fincore.git
+git push -u origin main
+```
 
-**CORS error**
-→ Confirm header: `"anthropic-dangerous-direct-browser-access": "true"`
+**Subsequent updates:**
+```bash
+git add .
+git commit -m "describe your change"
+git push
+```
 
-**Invalid JSON response**
-→ Input may be too short or unclear
-
-**Image not analyzed**
-→ Use supported formats (`.png`, `.jpg`, `.webp`)
-
----
-
-##  Future Enhancements
-
-* Advanced AI fine-tuned contract models
-* Multi-document comparison
-* Real-time collaboration
-* Integration with enterprise tools
-* Predictive financial analytics
+> Replace `YOUR_USERNAME` with your actual GitHub username. Do **not** commit your `.env` file — add it to `.gitignore`.
 
 ---
 
+## Editing Guide
 
+| What you want to change | File to edit |
+|-------------------------|-------------|
+| Logo, nav links | `src/components/Navbar.jsx` |
+| Hero headline / subtitle | `src/components/Hero.jsx` |
+| Input tabs, textarea, dropzone | `src/components/InputPanel.jsx` |
+| Focus area options | `src/utils/constants.js` |
+| AI system prompt / model | `src/utils/api.js` |
+| Risk meter, clauses, financials UI | `src/components/Results.jsx` |
+| Loading / idle / done states | `src/components/ResultsPanel.jsx` |
+| Chatbot interface | `src/components/Chatbot.jsx` |
+| Translation feature | `src/components/Translator.jsx` |
+| Footer text | `src/components/Footer.jsx` |
+| Colors, fonts, CSS variables | `src/styles/global.css` |
+| App-level state & flow | `src/App.jsx` |
 
+---
 
