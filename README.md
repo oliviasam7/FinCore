@@ -1,144 +1,245 @@
-# FinCore — AI Contract Intelligence Platform
+# FinCore — AI-Powered Contract & Financial Intelligence Platform
 
 Upload any contract and get an instant AI-powered breakdown of risks, clauses, and financial terms — powered by **Claude (Anthropic API)**.
 
 ---
 
-## What It Does
+##  Why This Project Matters
 
-| Step | What happens |
-|------|-------------|
-| ① Paste or Upload | Paste contract text, or upload a `.txt`, `.pdf`, `.docx`, `.png`, `.jpg`, or `.webp` file |
-| ② Choose Focus Areas | Select which aspects to prioritize: Risk Flags, Financial Terms, Obligations, Exit Clauses, Penalties, or IP & Ownership |
-| ③ Analyze | Claude reads the contract and returns a structured JSON analysis |
-| ④ View Results | Risk score (0–100), plain-language clause breakdown, financial figures, and an actionable recommendation |
+Contract analysis in real-world businesses is:
+
+* Manual and time-consuming
+* Prone to human error
+* Difficult to standardize across teams
+
+**FinCore solves this by:**
+
+* Automating contract understanding using AI
+* Providing instant and consistent risk scoring
+* Converting complex legal language into simple insights
+
+ **Use Cases:**
+
+* Startups reviewing agreements quickly
+* Legal teams speeding up contract evaluation
+* Businesses minimizing financial and legal risks
 
 ---
 
-## Project Structure
+##  Unique Selling Points (USP)
+
+*  Real-time AI contract analysis (~10–15 seconds)
+*  Focus-based analysis (user selects priority areas)
+*  Structured JSON output (easy for integration)
+*  Powered by Claude AI for advanced language understanding
+*  Supports both text and image-based contracts
+
+---
+
+##  What It Does
+
+| Step                 | What happens                                                                                |
+| -------------------- | ------------------------------------------------------------------------------------------- |
+| ① Paste or Upload    | Paste contract text or upload `.txt`, `.pdf`, `.docx`, `.png`, `.jpg`, `.webp`              |
+| ② Choose Focus Areas | Select Risk Flags, Financial Terms, Obligations, Exit Clauses, Penalties, or IP & Ownership |
+| ③ Analyze            | Claude processes and returns structured JSON                                                |
+| ④ View Results       | Risk score, clause breakdown, financial insights, and recommendation                        |
+
+---
+
+##  Risk Scoring Explained
+
+The platform assigns a **risk score (0–100)** based on:
+
+* Presence of unfavorable clauses
+* Financial liabilities
+* Penalties and exit conditions
+* Ambiguity in obligations
+
+**Interpretation:**
+
+*  0–30 → Low Risk
+*  31–70 → Medium Risk
+*  71–100 → High Risk
+
+This enables quick, informed decision-making.
+
+---
+
+##  System Architecture
+
+1. User inputs contract (text or file)
+2. Frontend processes and prepares data
+3. Data sent to Anthropic API (Claude)
+4. AI analyzes using prompt engineering
+5. Structured JSON response generated
+6. UI displays:
+
+   * Risk Score
+   * Clause Analysis
+   * Financial Data
+   * Recommendation
+
+---
+
+##  Key Concepts Used
+
+* Natural Language Processing (NLP)
+* Prompt Engineering
+* Text Classification
+* Risk Analysis Models
+* Data Extraction Techniques
+
+---
+
+##  Tech Stack
+
+* **Frontend:** React.js, HTML, CSS, JavaScript
+* **Backend/API Handling:** JavaScript (Fetch API)
+* **AI Engine:** Claude (Anthropic API)
+* **File Processing:** Text extraction & base64 encoding
+
+---
+
+##  Project Structure
 
 ```
-fincorp/
+fincore/
 ├── public/
-│   └── index.html              # HTML shell
+│   └── index.html
 ├── src/
-│   ├── App.jsx                 # Root component — state & orchestration
-│   ├── index.js                # React entry point
+│   ├── App.jsx
+│   ├── index.js
 │   ├── styles/
-│   │   └── global.css          # CSS variables, grid background, responsive rules
+│   │   └── global.css
 │   ├── components/
-│   │   ├── Navbar.jsx          # Top navigation bar
-│   │   ├── Hero.jsx            # Hero headline section
-│   │   ├── InputPanel.jsx      # Left panel: input tabs, textarea, dropzone, focus toggles, analyze button
-│   │   ├── ResultsPanel.jsx    # Right panel: idle / loading / results states
-│   │   ├── Results.jsx         # Risk meter, clause cards, financials grid, recommendation block
-│   │   └── Footer.jsx          # Footer with disclaimer
+│   │   ├── Navbar.jsx
+│   │   ├── Hero.jsx
+│   │   ├── InputPanel.jsx
+│   │   ├── ResultsPanel.jsx
+│   │   ├── Results.jsx
+│   │   └── Footer.jsx
 │   └── utils/
-│       ├── api.js              # Anthropic API calls, JSON parsing, file reading helpers
-│       └── constants.js        # Focus area options, model name
+│       ├── api.js
+│       └── constants.js
 └── package.json
 ```
 
 ---
 
-## Setup
+##  Setup & Installation
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) v16 or higher
-- A free [Anthropic API key](https://console.anthropic.com/)
+
+* Node.js (v16 or higher)
+* Anthropic API Key
 
 ### Steps
 
 **1. Install dependencies**
+
 ```bash
 npm install
 ```
 
-**2. Add your API key**
+**2. Add API key**
 
-Create a `.env` file in the project root:
+Create `.env` file in root:
+
 ```
 REACT_APP_ANTHROPIC_KEY=your_api_key_here
 ```
 
-Then open `src/utils/api.js` and add the auth headers to the `callAPI` fetch call:
+Update headers in `src/utils/api.js`:
+
 ```js
 headers: {
   "Content-Type": "application/json",
   "x-api-key": process.env.REACT_APP_ANTHROPIC_KEY,
   "anthropic-version": "2023-06-01",
   "anthropic-dangerous-direct-browser-access": "true",
-},
+}
 ```
 
-**3. Start the app**
+**3. Run the app**
+
 ```bash
 npm start
 ```
 
-Opens at **http://localhost:3000**
+App runs at: **http://localhost:3000**
 
 ---
 
-## How to Use
 
-1. **Paste text** directly into the textarea, or switch to **Upload File** and drop in a contract
-2. **Select focus areas** — at least one must be checked (Risk Flags, Financial Terms, Obligations, etc.)
-3. Click **Analyze Contract →** and wait ~10–15 seconds
-4. Browse the results: risk score, clause-by-clause breakdown, financial figures, and a final recommendation
 
-> **Note on image uploads:** `.png`, `.jpg`, and `.webp` files are sent to Claude as base64 image inputs. Text-based files (`.txt`, `.pdf`, `.docx`) are read as plain text. Scanned PDFs that are images will be handled as images.
+##  How to Use
 
----
+1. Paste contract text OR upload a file
+2. Select at least one focus area
+3. Click **Analyze Contract →**
+4. View:
 
-## Push to GitHub
+   * Risk score
+   * Clause breakdown
+   * Financial insights
+   * Final recommendation
 
-**First time:**
-```bash
-git init
-git add .
-git commit -m "Initial commit — FinCorp contract analyzer"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/fincorp.git
-git push -u origin main
-```
-
-**Subsequent updates:**
-```bash
-git add .
-git commit -m "describe your change"
-git push
-```
+>  **Note:**
+> Image files are processed as vision inputs.
+> Text-based files are parsed directly.
 
 ---
 
-## Editing Guide
+##  Security Note
 
-| What you want to change | File to edit |
-|---|---|
-| Logo, nav links | `src/components/Navbar.jsx` |
-| Hero headline / subtitle | `src/components/Hero.jsx` |
-| Input tabs, textarea, dropzone | `src/components/InputPanel.jsx` |
-| Focus area options | `src/utils/constants.js` |
-| AI system prompt / model | `src/utils/api.js` |
-| Risk meter, clauses, financials UI | `src/components/Results.jsx` |
-| Loading / idle / done states | `src/components/ResultsPanel.jsx` |
-| Footer text | `src/components/Footer.jsx` |
-| Colors, fonts, CSS variables | `src/styles/global.css` |
-| App-level state & flow | `src/App.jsx` |
+* API key stored securely in environment variables
+* No contract data stored permanently
+* All analysis happens in real-time
 
 ---
 
-## Troubleshooting
+##  Editing Guide
 
-**`REACT_APP_ANTHROPIC_KEY` not working**
-→ Make sure the `.env` file is in the project root (same level as `package.json`), and that you restarted `npm start` after creating it.
+| Task          | File             |
+| ------------- | ---------------- |
+| Navbar / Logo | `Navbar.jsx`     |
+| Hero Section  | `Hero.jsx`       |
+| Input Panel   | `InputPanel.jsx` |
+| Focus Options | `constants.js`   |
+| AI Logic      | `api.js`         |
+| Results UI    | `Results.jsx`    |
+| App Flow      | `App.jsx`        |
+| Styling       | `global.css`     |
 
-**CORS error in the browser**
-→ The `anthropic-dangerous-direct-browser-access: true` header is required for direct browser-to-API calls. Confirm it's present in `api.js`.
+---
 
-**Analysis returns null / "Failed to parse"**
-→ The model response wasn't valid JSON. This can happen if the contract text is very short or garbled. Try a longer, cleaner input.
+##  Troubleshooting
 
-**Image contract not analyzed**
-→ Only image formats (`.png`, `.jpg`, `.jpeg`, `.webp`) are sent as vision inputs. Make sure the file extension is one of these. Scanned PDFs need to be converted to an image format first.
+**API key not working**
+→ Ensure `.env` is in root & restart server
+
+**CORS error**
+→ Confirm header: `"anthropic-dangerous-direct-browser-access": "true"`
+
+**Invalid JSON response**
+→ Input may be too short or unclear
+
+**Image not analyzed**
+→ Use supported formats (`.png`, `.jpg`, `.webp`)
+
+---
+
+##  Future Enhancements
+
+* Advanced AI fine-tuned contract models
+* Multi-document comparison
+* Real-time collaboration
+* Integration with enterprise tools
+* Predictive financial analytics
+
+---
+
+
+
+
