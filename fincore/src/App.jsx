@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./styles/global.css";
 
-import Navbar      from "./components/Navbar";
-import Hero        from "./components/Hero";
-import InputPanel  from "./components/InputPanel";
+import Navbar       from "./components/Navbar";
+import Hero         from "./components/Hero";
+import InputPanel   from "./components/InputPanel";
 import ResultsPanel from "./components/ResultsPanel";
-import Footer      from "./components/Footer";
+import Footer       from "./components/Footer";
 
 import { analyzeContract, readFileAsText } from "./utils/api";
 
@@ -19,21 +19,18 @@ const workspaceStyle = `
 `;
 
 export default function App() {
-  // Input state
   const [tab, setTab]         = useState("text");
   const [text, setText]       = useState("");
   const [file, setFile]       = useState(null);
   const [imgData, setImgData] = useState(null);
 
-  // Focus areas
   const [focus, setFocus] = useState(["risks", "financials", "obligations"]);
   const toggleFocus = (id) =>
     setFocus((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
 
-  // Analysis state
-  const [status, setStatus] = useState("idle"); // idle | loading | done | error
+  const [status, setStatus] = useState("idle");
   const [result, setResult] = useState(null);
   const [error, setError]   = useState("");
 
@@ -54,6 +51,8 @@ export default function App() {
         analysis = await analyzeContract(text, focus, null);
       } else {
         if (!file) throw new Error("Please upload a file.");
+        if (file.size > 5 * 1024 * 1024)
+          throw new Error("File is too large. Please upload a file under 5MB.");
         if (file.type.startsWith("image/")) {
           analysis = await analyzeContract("", focus, imgData);
         } else {
@@ -68,6 +67,8 @@ export default function App() {
       setStatus("error");
     }
   };
+
+  const contractText = tab === "text" ? text : "";
 
   return (
     <>
@@ -87,7 +88,11 @@ export default function App() {
             onAnalyze={handleAnalyze}
             canGo={canGo}
           />
-          <ResultsPanel status={status} result={result} />
+          <ResultsPanel
+            status={status}
+            result={result}
+            contractText={contractText}
+          />
         </div>
 
         <Footer />
