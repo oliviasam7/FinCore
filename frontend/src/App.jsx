@@ -39,9 +39,8 @@ const PLAN_LIMITS = { free: 3, pro: 50, enterprise: Infinity };
 function AppInner() {
   const { user, token, loading } = useAuth();
 
-  const [page, setPage] = useState("home"); // "home" | "login" | "pricing"
+  const [page, setPage] = useState("home");
 
-  // Input state
   const [tab, setTab]         = useState("text");
   const [text, setText]       = useState("");
   const [file, setFile]       = useState(null);
@@ -52,14 +51,14 @@ function AppInner() {
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
 
-  // Analysis state
-  const [status, setStatus] = useState("idle");
-  const [result, setResult] = useState(null);
-  const [error, setError]   = useState("");
+  const [status, setStatus]             = useState("idle");
+  const [result, setResult]             = useState(null);
+  const [error, setError]               = useState("");
+  const [contractText, setContractText] = useState("");  // ← stores extracted text
 
-  const limit = PLAN_LIMITS[user?.plan ?? "free"];
-  const used  = user?.analysisCount ?? 0;
-  const remaining = Math.max(0, limit - used);
+  const limit       = PLAN_LIMITS[user?.plan ?? "free"];
+  const used        = user?.analysisCount ?? 0;
+  const remaining   = Math.max(0, limit - used);
   const limitReached = user && remaining === 0;
 
   const canGo =
@@ -72,28 +71,36 @@ function AppInner() {
     if (!user) { setPage("login"); return; }
     if (limitReached) { setPage("pricing"); return; }
 
-    setStatus("loading"); setError(""); setResult(null);
+    setStatus("loading"); setError(""); setResult(null); setContractText("");
 
     try {
-      // Deduct usage on backend first
       await apiUseAnalysis(token);
 
       let analysis;
+      let extractedText = "";
+
       if (tab === "text") {
         if (!text.trim() || text.trim().length < 40)
           throw new Error("Please paste at least a few sentences of contract text.");
+        extractedText = text;
         analysis = await analyzeContract(text, focus, null);
+
       } else {
         if (!file) throw new Error("Please upload a file.");
+
         if (file.type.startsWith("image/")) {
           analysis = await analyzeContract("", focus, imgData);
+          extractedText = analysis._contractText || "";
         } else {
-          const content = await readFileAsText(file);
-          analysis = await analyzeContract(content, focus, null);
+          extractedText = await readFileAsText(file);
+          analysis = await analyzeContract(extractedText, focus, null);
         }
       }
+
+      setContractText(extractedText);
       setResult(analysis);
       setStatus("done");
+
     } catch (e) {
       if (e.message === "limit_reached") {
         setPage("pricing");
@@ -164,7 +171,11 @@ function AppInner() {
             limitReached={limitReached}
             notLoggedIn={!user}
           />
-          <ResultsPanel status={status} result={result} contractText={tab === "text" ? text : ""} />
+          <ResultsPanel
+            status={status}
+            result={result}
+            contractText={contractText}
+          />
         </div>
 
         <Footer />
