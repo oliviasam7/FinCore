@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "9410652f-7476-458d-935c-498d5c995031",
+      "name": "olivia",
+      "email": "olivia@gmail.com",
+      "password": "$2a$10$tBe8dQhZToTxWpeMDDyyBO7fILPFKzxHMyzwrJgieEMGPR5RVQNQS",
+      "plan": "pro",
+      "analysisCount": 2,
+      "createdAt": "2026-04-24T07:52:10.040Z"
+    },
+    {
+      "id": "275bdf57-e05b-425f-acfe-5cf42725940b",
+      "name": "Olivia",
+      "email": "abc@gmail.com",
+      "password": "$2a$10$bMDnQ2CzjoC4LlrOQE669uLC2meTKMU7uRbS2GnL0iQODLYU94iLq",
+      "plan": "free",
+      "analysisCount": 1,
+      "createdAt": "2026-04-24T08:07:28.812Z"
+    }
+  ]
+}
