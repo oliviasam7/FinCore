@@ -110,12 +110,13 @@ cp .env.example .env
 ```
 
 Then open `.env` and fill in your values:
+
+```env
 JWT_SECRET=any_long_random_string_you_make_up
 PORT=4001
 RAZORPAY_KEY_ID=rzp_test_xxxxxxxxxxxxxxxx
-RAZORPAY_KEY_SECRET=xxxxxxxxxxxxxxxxxxxxxxxx
-- **JWT_SECRET** — make up any long random string. Run `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"` to generate one.
-- **RAZORPAY_KEY_ID / RAZORPAY_KEY_SECRET** — get free test keys from Razorpay Dashboard → Settings → API Keys.
+RAZORPAY_KEY_SECRET=xxxxxxxxxxxxxxxxxxxx
+```
 
 **4. Start the backend**
 ```bash
@@ -146,8 +147,11 @@ npm install pdfjs-dist@3.11.174 docx file-saver
 ```
 
 **4. Create your `.env` file** in the `frontend/` folder:
+
+```env
 REACT_APP_OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxx
 Get your key from [platform.openai.com/api-keys](https://platform.openai.com/api-keys).
+```
 
 **5. Start the frontend**
 ```bash
