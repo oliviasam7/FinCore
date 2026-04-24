@@ -20,52 +20,54 @@ Upload any contract and get an instant AI-powered breakdown of risks, clauses, a
 
 ## Project Structure
 
+## 📁 Project Structure
+
+```plaintext
 FinCore-ia2/
 │
 ├── backend/
 │   ├── server.js              # Express API — auth, JWT, usage limits, Razorpay
-│   ├── db.json               # Auto-generated database (users + plans)
-│   ├── package.json          # Backend dependencies
-│   ├── .env                  # Backend secrets (not committed)
-│   └── .env.example          # Environment variable template
+│   ├── db.json                # Auto-generated database (users + plans)
+│   ├── package.json           # Backend dependencies
+│   ├── .env                   # Backend secrets (not committed)
+│   └── .env.example           # Environment variable template
 │
 ├── frontend/
 │   ├── public/
-│   │   └── index.html        # HTML shell
+│   │   └── index.html         # HTML shell
 │   │
 │   ├── src/
-│   │   ├── App.jsx           # Root component (state, auth, routing)
-│   │   ├── index.js          # React entry point
+│   │   ├── App.jsx            # Root component (state, auth, routing)
+│   │   ├── index.js           # React entry point
 │   │
 │   │   ├── styles/
-│   │   │   └── global.css    # CSS variables, layout, responsiveness
+│   │   │   └── global.css     # CSS variables, layout, responsiveness
 │   │
 │   │   ├── context/
-│   │   │   └── AuthContext.jsx  # Global auth state (user, token, login, logout)
+│   │   │   └── AuthContext.jsx  # Global auth state
 │   │
 │   │   ├── components/
-│   │   │   ├── Navbar.jsx        # Navigation bar (login/logout, pricing, plan)
-│   │   │   ├── Hero.jsx          # Hero section (headline)
-│   │   │   ├── InputPanel.jsx    # Left panel (upload, textarea, toggles)
-│   │   │   ├── ResultsPanel.jsx  # Right panel (loading/results/download)
-│   │   │   ├── Results.jsx       # Risk meter, clauses, financials, recommendations
+│   │   │   ├── Navbar.jsx        # Navigation bar
+│   │   │   ├── Hero.jsx          # Hero section
+│   │   │   ├── InputPanel.jsx    # Upload + text input
+│   │   │   ├── ResultsPanel.jsx  # Results display panel
+│   │   │   ├── Results.jsx       # Risk, clauses, financials
 │   │   │   ├── Login.jsx         # Authentication page
-│   │   │   ├── Pricing.jsx       # Pricing page (Razorpay integration)
+│   │   │   ├── Pricing.jsx       # Pricing + Razorpay
 │   │   │   ├── Chatbot.jsx       # Contract Q&A chatbot
-│   │   │   ├── Translator.jsx    # Multilingual explanation panel
-│   │   │   └── Footer.jsx        # Footer with disclaimer
+│   │   │   ├── Translator.jsx    # Multilingual panel
+│   │   │   └── Footer.jsx        # Footer
 │   │
 │   │   ├── utils/
-│   │   │   ├── api.js            # API calls (OpenAI, PDF extraction, file handling)
-│   │   │   ├── auth.js           # Auth wrappers (register, login, payment)
-│   │   │   ├── downloadReport.js # DOCX generation (docx + file-saver)
-│   │   │   └── constants.js      # App constants (focus areas, model names)
+│   │   │   ├── api.js            # API calls + PDF extraction
+│   │   │   ├── auth.js           # Auth utilities
+│   │   │   ├── downloadReport.js # DOCX generation
+│   │   │   └── constants.js      # App constants
 │   │
 │   └── package.json
 │
 └── README.md
-
----
+```
 
 ## Plans & Limits
 
