@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/global.css";
 
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import InputPanel from "./components/InputPanel";
-import ResultsPanel from "./components/ResultsPanel";
-import Footer from "./components/Footer";
-import Login from "./components/Login";
-import Pricing from "./components/Pricing";
+import Navbar        from "./components/Navbar";
+import Hero          from "./components/Hero";
+import InputPanel    from "./components/InputPanel";
+import ResultsPanel  from "./components/ResultsPanel";
+import Footer        from "./components/Footer";
+import Login         from "./components/Login";
+import Pricing       from "./components/Pricing";
+import ComparePanel  from "./components/ComparePanel";
+import TrackerPanel  from "./components/TrackerPanel";
+import DocsPanel     from "./components/DocsPanel";
 
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { analyzeContract, readFileAsText } from "./utils/api";
 import { apiUseAnalysis } from "./utils/auth";
+
+const DOCS_STORAGE_KEY = "fincore_recent_reports";
+const MAX_SAVED = 3;
 
 const workspaceStyle = `
 .workspace {
@@ -31,6 +37,11 @@ const workspaceStyle = `
   padding: 6px 18px; font-family: 'Syne', sans-serif; font-size: 11px;
   font-weight: 800; cursor: pointer; letter-spacing: 0.5px;
   clip-path: polygon(6px 0%,100% 0%,100% calc(100% - 6px),calc(100% - 6px) 100%,0% 100%,0% 6px);
+}
+.full-page {
+  position: relative; z-index: 1;
+  flex: 1; padding: 40px;
+  overflow-y: auto;
 }
 `;
 
@@ -54,11 +65,36 @@ function AppInner() {
   const [status, setStatus]             = useState("idle");
   const [result, setResult]             = useState(null);
   const [error, setError]               = useState("");
-  const [contractText, setContractText] = useState("");  // ← stores extracted text
+  const [contractText, setContractText] = useState("");
 
-  const limit       = PLAN_LIMITS[user?.plan ?? "free"];
-  const used        = user?.analysisCount ?? 0;
-  const remaining   = Math.max(0, limit - used);
+  // ── Recent reports (last 3, persisted in localStorage) ──────────────────
+  const [recentReports, setRecentReports] = useState(() => {
+    try { return JSON.parse(localStorage.getItem(DOCS_STORAGE_KEY) || "[]"); }
+    catch { return []; }
+  });
+
+  function saveReport(analysis, filename) {
+    const entry = {
+      id:          Date.now().toString(),
+      savedAt:     new Date().toISOString(),
+      filename:    filename || "Contract",
+      riskScore:   analysis.riskScore,
+      riskLevel:   analysis.riskLevel,
+      summary:     analysis.summary,
+      clauses:     analysis.clauses,
+      financials:  analysis.financials,
+      recommendation: analysis.recommendation,
+    };
+    setRecentReports(prev => {
+      const updated = [entry, ...prev].slice(0, MAX_SAVED);
+      localStorage.setItem(DOCS_STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  }
+
+  const limit        = PLAN_LIMITS[user?.plan ?? "free"];
+  const used         = user?.analysisCount ?? 0;
+  const remaining    = Math.max(0, limit - used);
   const limitReached = user && remaining === 0;
 
   const canGo =
@@ -78,16 +114,16 @@ function AppInner() {
 
       let analysis;
       let extractedText = "";
+      let filename = "Pasted Contract";
 
       if (tab === "text") {
         if (!text.trim() || text.trim().length < 40)
           throw new Error("Please paste at least a few sentences of contract text.");
         extractedText = text;
         analysis = await analyzeContract(text, focus, null);
-
       } else {
         if (!file) throw new Error("Please upload a file.");
-
+        filename = file.name;
         if (file.type.startsWith("image/")) {
           analysis = await analyzeContract("", focus, imgData);
           extractedText = analysis._contractText || "";
@@ -100,6 +136,9 @@ function AppInner() {
       setContractText(extractedText);
       setResult(analysis);
       setStatus("done");
+
+      // ── Save to recent reports ──
+      saveReport(analysis, filename);
 
     } catch (e) {
       if (e.message === "limit_reached") {
@@ -138,12 +177,60 @@ function AppInner() {
     );
   }
 
+  if (page === "compare") {
+    return (
+      <>
+        <style>{workspaceStyle}</style>
+        <div className="app">
+          <Navbar onPricing={() => setPage("pricing")} onLogin={() => setPage("login")} setPage={setPage} />
+          <div className="full-page">
+            <ComparePanel token={token} user={user} onLogin={() => setPage("login")} />
+          </div>
+          <Footer />
+        </div>
+      </>
+    );
+  }
+
+  if (page === "tracker") {
+    return (
+      <>
+        <style>{workspaceStyle}</style>
+        <div className="app">
+          <Navbar onPricing={() => setPage("pricing")} onLogin={() => setPage("login")} setPage={setPage} />
+          <div className="full-page">
+            <TrackerPanel token={token} user={user} onLogin={() => setPage("login")} />
+          </div>
+          <Footer />
+        </div>
+      </>
+    );
+  }
+
+  if (page === "docs") {
+    return (
+      <>
+        <style>{workspaceStyle}</style>
+        <div className="app">
+          <Navbar onPricing={() => setPage("pricing")} onLogin={() => setPage("login")} setPage={setPage} />
+          <div className="full-page">
+            <DocsPanel reports={recentReports} onClear={() => {
+              setRecentReports([]);
+              localStorage.removeItem(DOCS_STORAGE_KEY);
+            }} />
+          </div>
+          <Footer />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <style>{workspaceStyle}</style>
       <div className="app">
         <Navbar onPricing={() => setPage("pricing")} onLogin={() => setPage("login")} setPage={setPage} />
-        <Hero />
+        <Hero onCompare={() => setPage("compare")} onTracker={() => setPage("tracker")} />
 
         {user && (
           <div className="limit-banner">
