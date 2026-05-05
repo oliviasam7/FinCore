@@ -39,8 +39,8 @@ When a contract is analyzed, GPT-4o scans the document and provides a highly str
 | Plan | Analyses | Price |
 |------|----------|-------|
 | **Free** | 3 total | ₹0 |
-| **Pro** | 50 / month | ₹499 / month |
-| **Enterprise** | Unlimited | ₹1,999 / month |
+| **Pro** | 50 / month | ₹199 / month |
+| **Enterprise** | Unlimited | ₹499 / month |
 
 Upgrades are processed securely via **Razorpay**. Users must complete payment before their plan is updated.
 
@@ -53,7 +53,7 @@ FinCore/
 │
 ├── backend/                   # Express.js API
 │   ├── server.js              # Auth, JWT, usage limits, AI proxy, Razorpay
-│   ├── db.json                # Auto-generated database (users + plans)
+│   ├── models/                # MongoDB Mongoose schemas (users + plans)
 │   ├── package.json           
 │   └── .env.example           # Environment variable template
 │
@@ -92,6 +92,7 @@ Because FinCore is a full-stack app, you need **two terminals** running at the s
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/) v16 or higher
+- [MongoDB](https://www.mongodb.com/) (Local instance or MongoDB Atlas URI)
 - An [OpenAI API key](https://platform.openai.com/api-keys) (GPT-4o access required)
 - A [Razorpay account](https://razorpay.com) for payment processing (free test mode available)
 
@@ -113,6 +114,7 @@ Open `.env` and fill in your values:
 ```env
 JWT_SECRET=any_long_random_string_you_make_up
 PORT=4001
+MONGO_URI=mongodb://localhost:27017/fincore
 FRONTEND_ORIGIN=http://localhost:3000
 RAZORPAY_KEY_ID=rzp_test_xxxxxxxxxxxxxxxx
 RAZORPAY_KEY_SECRET=xxxxxxxxxxxxxxxxxxxx
@@ -123,7 +125,7 @@ OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxx
 ```bash
 node server.js
 ```
-*You should see: `FinCore backend running on port 4001`*
+*You should see: `FinCore backend running on port 4001` and `Connected to MongoDB`*
 
 ---
 
@@ -157,7 +159,7 @@ npm start
 | Pricing plans and amounts | `frontend/src/components/Pricing.jsx` |
 | Auth pages | `frontend/src/components/Login.jsx` |
 | Light/Dark Theme & Colors | `frontend/src/styles/global.css` |
-| User database & API routes | `backend/server.js` |
+| MongoDB Schema & API routes | `backend/server.js` & `backend/models/` |
 
 ---
 
@@ -165,6 +167,9 @@ npm start
 
 **"Failed to fetch" on login or register**
 → The backend is not running. Open a second terminal, go to `backend/`, and run `node server.js`.
+
+**MongoDB Connection Error**
+→ Ensure your MongoDB server is running locally on port 27017, or verify your `MONGO_URI` is correct in the `.env` file.
 
 **AI returns Mock Data / "API key not configured"**
 → The app now proxies OpenAI through the backend. Ensure your `OPENAI_API_KEY` is set in the **`backend/.env`** file.
